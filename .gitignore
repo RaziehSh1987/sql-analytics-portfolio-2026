@@ -1,0 +1,24 @@
+# Credentials
+.env
+*.env
+config.json
+secrets.json
+
+# Local DB files
+*.db
+*.sqlite
+*.sqlite3
+*.duckdb
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
