@@ -12,8 +12,7 @@ This folder contains daily SQL practice:
 
 - schema.sql: database schema
 - seed.sql: sample data
-- basic-select/: foundational queries
-- aggregation/: GROUP BY, HAVING
+- basic-select/: foundational queries , selest,from,where,current_date,interval,trim,lower
 - window_functions/: OVER(), PARTITION BY
 
 Each folder contains progressively harder examples.
