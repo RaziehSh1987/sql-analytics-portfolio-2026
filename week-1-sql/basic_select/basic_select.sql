@@ -1,1 +1,15 @@
--- Day X practice will go here
+-- Day 1 — SELECT & WHERE
+-- Business question:
+-- How many customers from Canada signed up in the last 6 months?
+
+-- Example 1: Basic filtering
+SELECT name, signup_date
+FROM customers
+WHERE country = 'Canada'
+  AND signup_date >= '2024-01-01';
+
+-- Example 2: Count customers (dynamic date)
+SELECT COUNT(*) AS canada_last_6_months
+FROM customers
+WHERE country = 'Canada'
+  AND signup_date >= CURRENT_DATE - INTERVAL '6 months';
