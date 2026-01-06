@@ -13,3 +13,16 @@ SELECT COUNT(*) AS canada_last_6_months
 FROM customers
 WHERE country = 'Canada'
   AND signup_date >= CURRENT_DATE - INTERVAL '6 months';
+
+-- Day 2 — DATE 
+-- Business question:
+-- Example 2 Business question:
+-- Number of registrations according to month?
+select 
+	count(*) as number_of_registeration,
+	to_char(signup_date,'month') as month
+	--or extract (month from signup_date) as month ==> just number
+	--or DATE_TRUNC('month',signup_date) as month ==> complete date+time zone
+from customers
+group by  month
+order by month Desc;
