@@ -158,6 +158,3 @@ FROM orders;
 * **joins** → *Combine tables*
 * **subqueries** → *Query inside a query*
 * **window_functions** → *Analytics without grouping*
-
----
-enges** based on this structure
