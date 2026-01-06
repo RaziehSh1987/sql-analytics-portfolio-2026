@@ -12,4 +12,5 @@ How many customers from Canada signed up in the last 6 months?
 - Used dynamic date filtering
 - Applied defensive string normalization (LOWER, TRIM)
 
-<img width="548" height="189" alt="image" src="https://github.com/user-attachments/assets/c9639fa2-d7de-47e8-982f-21d5b45fac7b" />
+<img width="446" height="165" alt="image" src="https://github.com/user-attachments/assets/3a43e1ae-61d6-4371-a716-0f264209408a" />
+
