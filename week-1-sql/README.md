@@ -8,18 +8,13 @@ This folder contains daily SQL practice:
 - window_functions.sql
 
 # Week 1 — Day 1: SQL SELECT & WHERE
+## SQL Practice (PostgreSQL)
 
-## Goal
-Practice basic SQL filtering and counting with real business questions.
+- schema.sql: database schema
+- seed.sql: sample data
+- basic-select/: foundational queries
+- aggregation/: GROUP BY, HAVING
+- window_functions/: OVER(), PARTITION BY
 
-## Files
-- `schema.sql` — table definition
-- `seed.sql` — sample data
-- `queries.sql` — SQL queries with explanations
+Each folder contains progressively harder examples.
 
-## Business Question
-How many customers from Canada signed up in the last 6 months?
-
-## Notes
-- Used dynamic date filtering
-- Applied defensive string normalization (LOWER, TRIM)
