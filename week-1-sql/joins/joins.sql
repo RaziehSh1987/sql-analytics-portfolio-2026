@@ -1,7 +1,7 @@
-- Day 3 — Aggregation with global KPIs using CTE + CROSS JOIN + where not exists + inner join + left join +right join + COALESCE
+-- Day 3 — Aggregation with global KPIs using CTE + CROSS JOIN + where not exists + inner join + left join +right join + COALESCE
 
--ex 1 Business question:
-  - Customer name + order amount + order date
+--ex 1 Business question:
+  -- Customer name + order amount + order date
 	select
 	 c.name,
 	 o.amount,
@@ -10,8 +10,8 @@
 		inner join orders o
 		on c.customer_id=o.customer_id;
 
-- ex 2 Business question:
-  -  All customers + their total purchases (NULL if no purchases)
+-- ex 2 Business question:
+  --  All customers + their total purchases (NULL if no purchases)
 	select 
 		c.name,
 		sum(o.amount) as total_purchases
@@ -21,7 +21,7 @@
 	group by c.name
 	order by c.name;
 
--ex 3 Business question:
+--ex 3 Business question:
 	- "Which customers have registered but haven't placed any orders?"
 	select 
 		c.name,
@@ -43,7 +43,7 @@
 		 where o.customer_id = c.customer_id)
 	 order by c.name
 
-- ex 4 Business question:
+-- ex 4 Business question:
 	  - "What is the total purchase of each customer? (Even those who don't make a purchase)"
 	
 select
@@ -55,7 +55,7 @@ from customers c
  group by c.name
  order by c.name;
 
-- ex 5 Business question:
+-- ex 5 Business question:
   - Customer Name, Number of Orders, Total Order Amount 	
 select
 	c.name,
@@ -67,7 +67,7 @@ from customers c
  group by c.name
  order by c.name;
 
-  -  or: write 0(zero) instead of null
+  --  or: write 0(zero) instead of null
 
 SELECT
     c.name,
@@ -80,8 +80,8 @@ GROUP BY c.name
 ORDER BY c.name;
  
 
-- ex 6 Business question:
-  -  Customers with 0 orders
+-- ex 6 Business question:
+  --  Customers with 0 orders
 select c.name
 from customers c
 where not exists  (
@@ -90,7 +90,7 @@ where not exists  (
 	where o.customer_id = c.customer_id
 )
 order by c.name;
-- or
+-- or
 
 select 
 	c.name 
@@ -100,7 +100,7 @@ from customers c
 where o.order_id is null 
 order by c.name;
 
-- ex 7 Business question:
+-- ex 7 Business question:
   	- 	Only customers who have purchased in the last 6 months
 
 select distinct 
@@ -111,8 +111,8 @@ join orders o
 where o.order_date >= Current_Date-INTERVAL '6 months' 
 order by c.name;
 
-- ex 8 Business question:
-	-  But also show all customers
+-- ex 8 Business question:
+	--  But also show all customers
 
 SELECT
     c.name,
