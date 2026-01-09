@@ -50,3 +50,7 @@
     ON ca.country = ct.country
 WHERE ct.customer_purchase > ca.avg_country_purchase
 ORDER BY ct.country, ct.customer_purchase DESC;
+
+- ex6 Business question:
+	- Customers whose total purchase is greater than the average total purchase of customers
+<img width="349" height="116" alt="image" src="https://github.com/user-attachments/assets/7abc0136-e357-4f76-bb54-ef40a1f9d439" />
