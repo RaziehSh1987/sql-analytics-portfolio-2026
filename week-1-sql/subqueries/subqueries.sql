@@ -135,3 +135,28 @@ JOIN country_avg ca
     ON ca.country = ct.country
 WHERE ct.customer_purchase > ca.avg_country_purchase
 ORDER BY ct.country, ct.customer_purchase DESC;
+
+--ex6 Business question:
+	--Customers whose total purchase is greater than the average total purchase of customers
+
+with states as 
+	(
+		select customer_id,sum(amount) as customer_purchase
+		from orders 
+		group by customer_id
+	),
+	avg_state as 
+	(
+		select avg(customer_purchase) AS avg_customer_purchase
+		from states 
+	)
+select 
+	c.customer_id,
+	c.name,
+	s.customer_purchase	
+from customers c join states s 
+	  ON s.customer_id = c.customer_id
+	  cross join avg_State a
+where s.customer_purchase > a.avg_customer_purchase
+order by  s.customer_purchase DESC
+
