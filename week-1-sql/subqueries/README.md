@@ -54,3 +54,13 @@ ORDER BY ct.country, ct.customer_purchase DESC;
 - ex6 Business question:
 	- Customers whose total purchase is greater than the average total purchase of customers
 <img width="349" height="116" alt="image" src="https://github.com/user-attachments/assets/7abc0136-e357-4f76-bb54-ef40a1f9d439" />
+
+- ex7 Business question:
+	- Customers whose last order was after 2024-06-01
+
+<img width="380" height="86" alt="image" src="https://github.com/user-attachments/assets/ad5d27de-a2d7-4539-a251-68a90985de62" />
+
+
+- ex8 Business question:
+	- Customers with the highest total purchases (there may be several)
+<img width="500" height="86" alt="image" src="https://github.com/user-attachments/assets/45a1d827-7258-49b3-b9f3-29bddf626e99" />
