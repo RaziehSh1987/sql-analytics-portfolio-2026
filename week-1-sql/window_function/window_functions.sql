@@ -72,18 +72,18 @@ from orders;
 --ex4 Business question:
 	-- Rank customers based on total purchases:
 	-- with RANK()
--- SELECT
---   customer,
---   total_purchase,
---   RANK() OVER (ORDER BY total_purchase DESC) AS rnk
--- FROM sales;
+SELECT
+  customer,
+  total_purchase,
+  RANK() OVER (ORDER BY total_purchase DESC) AS rnk
+FROM sales;
 
--- 	---- with DENSE_RANK()
--- SELECT
---   customer,
---   total_purchase,
---   DENSE_RANK() OVER (ORDER BY total_purchase DESC) AS dense_rnk
--- FROM sales;
+	---- with DENSE_RANK()
+SELECT
+  customer,
+  total_purchase,
+  DENSE_RANK() OVER (ORDER BY total_purchase DESC) AS dense_rnk
+FROM sales;
 
 --ex5 Business question:
 	--Share of each order from total sales
