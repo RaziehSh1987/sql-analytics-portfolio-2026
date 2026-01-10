@@ -160,3 +160,32 @@ from customers c join states s
 where s.customer_purchase > a.avg_customer_purchase
 order by  s.customer_purchase DESC
 
+--ex7 Business question:
+	-- Customers whose last order was after 2024-06-01
+
+select c.name,
+		c.customer_id,
+		max(o.order_date) as last_order_date
+from customers c join orders o
+	on c.customer_id = o.customer_id
+group by c.customer_id,c.name
+having  max(o.order_date)> DATE ('2024-06-01');
+
+--ex8 Business question:
+	--Customers with the highest total purchases (there may be several)
+with customer_total as (
+			select c.name,
+			c.customer_id,
+			sum(o.amount)  as amount_order,
+			max(sum(o.amount)) over() as max_amount
+			from customers c join orders o
+				on c.customer_id = o.customer_id
+			group by c.customer_id,c.name
+			)
+select customer_id,
+	   name,
+	   amount_order, 
+	   max_amount
+from customer_total
+where amount_order=max_amount
+
