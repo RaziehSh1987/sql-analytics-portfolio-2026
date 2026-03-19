@@ -22,7 +22,7 @@ cross join stats s
 group by c.country , s.total_country , s.unique_country
 order by customer_count desc;
 
---Ex2 Business question:
+-- Ex2 Business question:
 	-- For each country, give the number of customers who have registered in the last 12 months.
 
 	select 
