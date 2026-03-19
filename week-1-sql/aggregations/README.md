@@ -1,5 +1,5 @@
 # Day 2:
--EX 1:  Aggregation with global KPIs using CTE [  WITH ...state AS ]+ CROSS JOIN  + GROUP BY + ORDER BY
+- EX 1:  Aggregation with global KPIs using CTE [  WITH ...state AS ]+ CROSS JOIN  + GROUP BY + ORDER BY
 # With
   - Business question:
   - Total number of customers
