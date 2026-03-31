@@ -1,4 +1,5 @@
 
+Second highest salary:
 <img width="451" height="648" alt="image" src="https://github.com/user-attachments/assets/031e984a-25fd-4d3a-af1a-2fecde1ead18" />
 
 ## ✅ Solution 1 — Using `DENSE_RANK()` (Window Function)
