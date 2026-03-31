@@ -68,5 +68,16 @@ from(
 where  pre=num and num=nex
 
 ```
+<img width="457" height="650" alt="image" src="https://github.com/user-attachments/assets/6f247661-2e49-4074-bd5e-88e9626b25e8" />
+
+```sql
+select name as Employee
+from employee as em
+where salary > (select salary
+                from employee as manag
+                where id=em.managerID )
+
+```
+
 
 
