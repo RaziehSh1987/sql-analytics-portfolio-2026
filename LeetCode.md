@@ -37,3 +37,12 @@ ORDER BY salary DESC → highest first
 DISTINCT removes duplicates
 OFFSET 1 skips highest salary
 LIMIT 1 returns next → second highest
+
+- get Nth highest value:
+- <img width="479" height="677" alt="image" src="https://github.com/user-attachments/assets/6e29c60b-16e3-4948-9729-284bf3589410" />
+```sql
+ select (select distinct(salary)
+      from   (select salary , DENSE_RANK() over(order by salary) as rnk
+             from employee)as rnk_tbl
+      where  rnk=n) as getNHighestSalary
+```
