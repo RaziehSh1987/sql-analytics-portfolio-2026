@@ -71,6 +71,15 @@ where  pre=num and num=nex
 <img width="457" height="650" alt="image" src="https://github.com/user-attachments/assets/6f247661-2e49-4074-bd5e-88e9626b25e8" />
 
 ```sql
+SELECT e.name AS Employee
+FROM Employee e
+JOIN Employee m
+ON e.managerId = m.id
+WHERE e.salary > m.salary
+```
+or
+
+```sql
 select name as Employee
 from employee as em
 where salary > (select salary
@@ -80,4 +89,4 @@ where salary > (select salary
 ```
 
 
-
+https://leetcode.com/problems/employees-earning-more-than-their-managers/solutions/7724236/employees-earning-more-than-their-manage-c9wp/
