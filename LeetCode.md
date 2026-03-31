@@ -47,13 +47,16 @@ LIMIT 1 returns next → second highest
       where  rnk=n) as getNHighestSalary
 ```
 <img width="465" height="313" alt="image" src="https://github.com/user-attachments/assets/07f5cacf-3731-4540-9824-23965f7fee7b" />
+
 ```sql
 select  score, 
         DENSE_RANK() over( Order by score DESC) as 'rank' 
        from Scores
 ```
+
 ## consecutive Number:
 <img width="434" height="710" alt="image" src="https://github.com/user-attachments/assets/76162736-f58f-4e15-bf77-2dee2205788d" />
+
 ```sql
 select distinct num as ConsecutiveNums
 from(
@@ -63,6 +66,7 @@ from(
         from  Logs
         order by num)as LAG_num_lead
 where  pre=num and num=nex
+
 ```
 
 
