@@ -88,7 +88,7 @@ where salary > (select salary
 
 ```
 
-# 🧠 185. Department Top Three Salaries
+# 🧠 185. Department Top Three Salaries - Hard
 
 ## Tables
 
@@ -147,4 +147,5 @@ LEFT JOIN Department d
 WHERE rnk <= 3;
 ```
 
-https://leetcode.com/problems/employees-earning-more-than-their-managers/solutions/7724236/employees-earning-more-than-their-manage-c9wp/
+[https://leetcode.com/problems/employees-earning-more-than-their-managers/solutions/7724236/employees-earning-more-than-their-manage-c9wp/
+](https://leetcode.com/problems/department-top-three-salaries/)
