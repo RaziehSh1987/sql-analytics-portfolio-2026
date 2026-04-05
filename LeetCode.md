@@ -88,5 +88,63 @@ where salary > (select salary
 
 ```
 
+# 🧠 185. Department Top Three Salaries
+
+## Tables
+
+### Employee
+
+| id | name  | salary | departmentId |
+|----|------|--------|--------------|
+| PK |      |        | FK → Department.id |
+
+---
+
+### Department
+
+| id | name |
+|----|------|
+| PK |      |
+
+---
+
+## Task
+
+Find employees whose salary is in the **top 3 unique salaries** within each department.
+
+---
+
+## Output
+
+| Department | Employee | Salary |
+|------------|----------|--------|
+
+---
+
+## Notes
+
+- Use **top 3 unique salaries (not top 3 employees)**  
+- Result can be in **any order**
+
+## 🧠 SQL Solution: Top 3 Salaries per Department
+
+```sql
+SELECT 
+    d.name AS Department, 
+    t.name AS Employee, 
+    t.salary AS Salary
+FROM (
+    SELECT 
+        *, 
+        DENSE_RANK() OVER (
+            PARTITION BY departmentId 
+            ORDER BY salary DESC
+        ) AS rnk
+    FROM Employee
+) t
+LEFT JOIN Department d
+    ON t.departmentId = d.id
+WHERE rnk <= 3;
+```
 
 https://leetcode.com/problems/employees-earning-more-than-their-managers/solutions/7724236/employees-earning-more-than-their-manage-c9wp/
