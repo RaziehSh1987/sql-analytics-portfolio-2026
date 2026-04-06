@@ -146,6 +146,70 @@ LEFT JOIN Department d
     ON t.departmentId = d.id
 WHERE rnk <= 3;
 ```
+# 262. Trips and Users
 
-[https://leetcode.com/problems/employees-earning-more-than-their-managers/solutions/7724236/employees-earning-more-than-their-manage-c9wp/
-](https://leetcode.com/problems/department-top-three-salaries/)
+**Difficulty:** Hard  
+**Topics:** SQL  
+**Companies:** (Premium)
+
+---
+
+## 📊 Table: Trips
+
+| Column Name | Type |
+|------------|------|
+| id         | int  |
+| client_id  | int  |
+| driver_id  | int  |
+| city_id    | int  |
+| status     | enum |
+| request_at | varchar |
+
+- `id` is the primary key.
+- Each trip has a unique id.
+- `client_id` and `driver_id` are foreign keys to `users_id` in the Users table.
+- `status` is one of:
+  - `'completed'`
+  - `'cancelled_by_driver'`
+  - `'cancelled_by_client'`
+
+---
+
+## 📊 Table: Users
+
+| Column Name | Type |
+|------------|------|
+| users_id   | int  |
+| banned     | enum |
+| role       | enum |
+
+- `users_id` is the primary key.
+- `role` is one of:
+  - `'client'`
+  - `'driver'`
+  - `'partner'`
+- `banned` is:
+  - `'Yes'`
+  - `'No'`
+
+---
+
+## 🧠 Problem
+
+The **cancellation rate** is defined as:
+
+> Number of canceled trips (by client or driver)  
+> divided by  
+> Total number of trips  
+
+⚠️ Only consider trips where:
+- **client is NOT banned**
+- **driver is NOT banned**
+
+---
+
+## 📅 Requirement
+
+Find the **daily cancellation rate** for trips between:
+
+https://leetcode.com/problems/trips-and-users/submissions/1970323614/
