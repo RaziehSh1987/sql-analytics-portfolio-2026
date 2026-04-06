@@ -212,4 +212,34 @@ The **cancellation rate** is defined as:
 
 Find the **daily cancellation rate** for trips between:
 
-https://leetcode.com/problems/trips-and-users/submissions/1970323614/
+---
+
+## ✅ SQL Solution
+
+```sql
+WITH valid_trip AS (
+    SELECT t.*
+    FROM Trips t
+    JOIN Users u_c ON t.client_id = u_c.users_id
+    JOIN Users u_d ON t.driver_id = u_d.users_id
+    WHERE u_c.banned = 'No'
+      AND u_d.banned = 'No'
+      AND t.request_at BETWEEN '2013-10-01' AND '2013-10-03'
+)
+
+SELECT 
+    request_at AS Day,
+    ROUND(
+        SUM(
+            CASE 
+                WHEN status != 'completed' THEN 1
+                ELSE 0
+            END
+        ) * 1.0 / COUNT(*),
+        2
+    ) AS "Cancellation Rate"
+FROM valid_trip
+GROUP BY request_at;
+```
+
+https://leetcode.com/problems/trips-and-users/
