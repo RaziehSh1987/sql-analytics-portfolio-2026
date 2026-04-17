@@ -207,6 +207,8 @@ stock < forecast × lead time factor
 
 ## 💬 Interview Killer Line
 
+# I have to remember implement power bi developer interview questions here like manage role , RLS ,..
+
 > "I select KPIs based on decisions, not just data. Every KPI must lead to a clear business action."
 
 
