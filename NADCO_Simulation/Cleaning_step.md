@@ -2,79 +2,106 @@
 # I use python script for automation cleaning step:
 ---
 
-##  'dataset' holds the input data for this script
+# Data Cleaning Script for Power BI (Python)
 
+This script is designed to clean and preprocess a dataset inside Power BI using Python.
+
+## Overview
+
+The script performs the following steps:
+
+- Standardizes column names
+- Removes duplicate records
+- Handles missing values
+- Converts data types
+- Removes outliers
+- Cleans text fields
+
+---
+
+## Requirements
+
+- Python 3.x
+- pandas
+- numpy
+
+---
+
+## Script
+
+```python
 import pandas as pd
-- 1. Install pandas in the correct Python (Most Important)
-    - Open Command Prompt as Administrator and run these commands one by one:
-    - cmdcd C:\Users\razieh\AppData\Local\Programs\Python\Python38\Scripts
+import numpy as np
 
-        - pip install pandas
-        - pip install numpy
-- 2. Set the correct Python path in Power BI
-    - In Power BI Desktop, go to:
-    - File → Options and settings → Options
-
-    - On the left, select Python scripting
-    - Under "Python home directory", browse and select this folder:
-    - C:\Users\razieh\AppData\Local\Programs\Python\Python38
-    - Click OK
-
-- 3. Restart Power BI
-    - Close and reopen Power BI completely.
-- 4. Try running the Python script again
-
-## ====================== AUTOMATIC DATA CLEANING ======================
-
+# Copy input dataset
 df = dataset.copy()
 
-## 1. Remove duplicate rows
+# ----------------------------
+# 1. Standardize column names
+# ----------------------------
+df.columns = (
+    df.columns
+    .str.strip()
+    .str.lower()
+    .str.replace(" ", "_")
+)
+
+# ----------------------------
+# 2. Remove duplicates
+# ----------------------------
 df = df.drop_duplicates()
 
-## 2. Strip whitespace from all string columns
-string_cols = df.select_dtypes(include=['object']).columns
-df[string_cols] = df[string_cols].apply(lambda x: x.str.strip())
+# ----------------------------
+# 3. Handle missing values
+# ----------------------------
+# Fill numeric columns with median
+num_cols = df.select_dtypes(include=[np.number]).columns
+df[num_cols] = df[num_cols].apply(lambda x: x.fillna(x.median()))
 
-## 3. Convert column names to clean format (lowercase + underscore)
-df.columns = [col.strip().lower().replace(" ", "_").replace("-", "_") for col in df.columns]
+# Fill text columns with 'unknown'
+cat_cols = df.select_dtypes(include=['object']).columns
+df[cat_cols] = df[cat_cols].fillna('unknown')
 
-## 4. Auto-detect and convert data types
+# ----------------------------
+# 4. Convert data types
+# ----------------------------
+# Try converting columns to datetime if possible
 for col in df.columns:
-    # Try converting to datetime
-    if df[col].dtype == 'object':
-        try:
-            df[col] = pd.to_datetime(df[col], errors='ignore')
-        except:
-            pass
-    
-    #Try converting to numeric
-    if df[col].dtype == 'object':
-        df[col] = pd.to_numeric(df[col], errors='ignore')
+    try:
+        df[col] = pd.to_datetime(df[col])
+    except:
+        pass
 
-## 5. Handle missing values
-for col in df.columns:
-    if df[col].dtype in ['int64', 'float64']:
-        #Fill numeric columns with median
-        df[col] = df[col].fillna(df[col].median())
-    elif df[col].dtype == 'object':
-        #Fill text columns with "Unknown"
-        df[col] = df[col].fillna("Unknown")
-    elif pd.api.types.is_datetime64_any_dtype(df[col]):
-        #Fill date columns with the most common date
-        df[col] = df[col].fillna(df[col].mode()[0])
+# ----------------------------
+# 5. Remove outliers (IQR method)
+# ----------------------------
+for col in num_cols:
+    Q1 = df[col].quantile(0.25)
+    Q3 = df[col].quantile(0.75)
+    IQR = Q3 - Q1
+    df = df[
+        (df[col] >= Q1 - 1.5 * IQR) &
+        (df[col] <= Q3 + 1.5 * IQR)
+    ]
 
-## 6. Optional: Add useful calculated columns (customize as needed)
-if 'order_date' in df.columns:
-    df['year'] = df['order_date'].dt.year
-    df['month'] = df['order_date'].dt.month
-    df['quarter'] = df['order_date'].dt.quarter
+# ----------------------------
+# 6. Trim text columns
+# ----------------------------
+for col in cat_cols:
+    df[col] = df[col].str.strip()
 
-if 'quantity' in df.columns and 'unit_price' in df.columns:
-    df['total_amount'] = df['quantity'] * df['unit_price']
+# ----------------------------
+# 7. Final cleaned dataset
+# ----------------------------
+df
 
-## ====================== OUTPUT ======================
-dataset = df
+```
 
-print("✅ Data cleaning completed successfully!")
-print(f"Shape after cleaning: {df.shape}")
-print("\nColumns:", df.columns.tolist())
+# Now I have to run  by click on the checkmark,  then  expand value :
+<img width="614" height="252" alt="image" src="https://github.com/user-attachments/assets/bc27c151-3a66-4185-b7ed-6e7721fcf392" />
+
+<img width="1912" height="588" alt="image" src="https://github.com/user-attachments/assets/7b7deb56-24f2-4be9-a31f-426322636c89" />
+
+
+
+
