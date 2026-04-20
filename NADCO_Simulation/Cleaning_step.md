@@ -1,8 +1,15 @@
 
 # I use python script for automation cleaning step:
 ---
-
-# Data Cleaning Script for Power BI (Python)
+## How to handle dates correctly (Power Query, not Python)
+-  In Power Query:
+-  Select your date column
+-  Go to:
+-  Transform → Data Type → Date
+-   Or with M code:
+-   = Table.TransformColumnTypes(#"Previous Step", {{"date", type date}})
+  
+## Data Cleaning Script for Power BI (Python)
 
 This script is designed to clean and preprocess a dataset inside Power BI using Python.
 
@@ -30,70 +37,35 @@ The script performs the following steps:
 ## Script
 
 ```python
+# 'dataset' holds the input data for this script
 import pandas as pd
 import numpy as np
 
-# Copy input dataset
 df = dataset.copy()
 
-# ----------------------------
-# 1. Standardize column names
-# ----------------------------
-df.columns = (
-    df.columns
-    .str.strip()
-    .str.lower()
-    .str.replace(" ", "_")
-)
+# Column names
+df.columns = df.columns.astype(str).str.strip().str.lower().str.replace(" ", "_")
 
-# ----------------------------
-# 2. Remove duplicates
-# ----------------------------
+# Remove duplicates
 df = df.drop_duplicates()
 
-# ----------------------------
-# 3. Handle missing values
-# ----------------------------
-# Fill numeric columns with median
+# Missing values
 num_cols = df.select_dtypes(include=[np.number]).columns
 df[num_cols] = df[num_cols].apply(lambda x: x.fillna(x.median()))
 
-# Fill text columns with 'unknown'
 cat_cols = df.select_dtypes(include=['object']).columns
 df[cat_cols] = df[cat_cols].fillna('unknown')
 
 # ----------------------------
-# 4. Convert data types
-# ----------------------------
-# Try converting columns to datetime if possible
-for col in df.columns:
-    try:
-        df[col] = pd.to_datetime(df[col])
-    except:
-        pass
-
-# ----------------------------
-# 5. Remove outliers (IQR method)
-# ----------------------------
-for col in num_cols:
-    Q1 = df[col].quantile(0.25)
-    Q3 = df[col].quantile(0.75)
-    IQR = Q3 - Q1
-    df = df[
-        (df[col] >= Q1 - 1.5 * IQR) &
-        (df[col] <= Q3 + 1.5 * IQR)
-    ]
-
-# ----------------------------
-# 6. Trim text columns
+# 4. Clean text safely
 # ----------------------------
 for col in cat_cols:
-    df[col] = df[col].str.strip()
+    df[col] = df[col].astype(str).str.strip()
 
 # ----------------------------
-# 7. Final cleaned dataset
+# Final output (IMPORTANT)
 # ----------------------------
-df
+result = df.reset_index(drop=True)
 
 ```
 
