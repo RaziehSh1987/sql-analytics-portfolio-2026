@@ -102,6 +102,14 @@ df
 
 <img width="1912" height="588" alt="image" src="https://github.com/user-attachments/assets/7b7deb56-24f2-4be9-a31f-426322636c89" />
 
+## Steps in Power BI:
+- Go to Power Query Editor
+- In the right panel (Applied Steps) → select the step after:
+- Expanded Value
+-  Click fx (formula bar) to add a new step
+-  Paste:
+     - = Table.TransformColumnNames(#"Expanded Value", each Text.Replace(_, "Value.", ""))
+ 
 
 
 
