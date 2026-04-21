@@ -7,6 +7,17 @@ Follow this exact order to avoid breaking your data and to ensure consistency:
   - Dates → Date format  
   - Numbers → Numeric (not text)
   - Money → Fixed Decimal Number
+  - Converting Text Column to Boolean (True/False) in Power Query:
+      - When your column contains text values like `"0"` and `"1"`, you should explicitly map them to boolean values (`false` / `true`).
+```m
+= Table.TransformColumns(#"Changed Type1", {
+    {"is_future", each 
+        if _ = "0" then false 
+        else if _ = "1" then true 
+        else null, 
+    type logical}
+})
+```
 - Prevents calculation and aggregation errors  
 
 ---
