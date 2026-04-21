@@ -184,4 +184,6 @@ df['date'].dtype
 
 ```
 ```
+## I convert Date columns to these columns and also kept the original Date column:
+<img width="1892" height="651" alt="image" src="https://github.com/user-attachments/assets/bb17e9bb-b043-4d12-8257-9ee4deb4deb2" />
 
