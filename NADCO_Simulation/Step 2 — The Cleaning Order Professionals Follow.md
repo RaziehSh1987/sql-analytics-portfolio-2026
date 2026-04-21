@@ -5,7 +5,8 @@ Follow this exact order to avoid breaking your data and to ensure consistency:
 ### 1️⃣ Fix Data Types
 - Convert fields to correct types:
   - Dates → Date format  
-  - Numbers → Numeric (not text)  
+  - Numbers → Numeric (not text)
+  - Money → Fixed Decimal Number
 - Prevents calculation and aggregation errors  
 
 ---
