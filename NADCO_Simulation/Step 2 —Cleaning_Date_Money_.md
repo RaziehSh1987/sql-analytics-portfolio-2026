@@ -362,4 +362,8 @@ df['transaction_type'] = np.where(
 <img width="1194" height="132" alt="image" src="https://github.com/user-attachments/assets/d4705c74-c095-4c40-a81a-8e74c065b4a7" />
 <img width="864" height="207" alt="image" src="https://github.com/user-attachments/assets/d1678a66-c13f-4e61-ae7a-f885d53636b2" />
 
+- change data type to Fixed Decimal number:
+- <img width="665" height="182" alt="image" src="https://github.com/user-attachments/assets/b38682e3-c4bd-45e7-b8e0-95f3e28ad26e" />
+
+
 
