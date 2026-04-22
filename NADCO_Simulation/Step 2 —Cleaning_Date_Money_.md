@@ -189,6 +189,10 @@ df['date'].dtype
 
 
 ## ## Handling Money Column in Power Query(M)
+<img width="858" height="375" alt="image" src="https://github.com/user-attachments/assets/00f46c52-3ddf-4710-ba38-4c457a4364b9" />
+<img width="869" height="423" alt="image" src="https://github.com/user-attachments/assets/b4fb1e42-0241-4c28-90b8-e9094bf8109d" />
+
+
 - 💰 Convert Currency Text to Number in Power Query (M)
 <img width="603" height="271" alt="image" src="https://github.com/user-attachments/assets/799d0bb5-9d7d-43dd-9ab9-d72c1fe77689" />
 - If we want to do on 2 column we can write like these:
@@ -277,4 +281,81 @@ If your data is well-formatted, use locale instead:
 
 ```
 ```
+## 💰 Fix Money Columns in Python (Pandas)
 
+### 🎯 Goal
+Clean currency values (e.g., `$5,800`, `CAD 49.99`) and convert them to numeric format for analysis.
+
+---
+
+## ✅ Python Code
+
+```python
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv('kit_sales.csv')
+
+# Clean money values
+def clean_money(val):
+    if pd.isnull(val):
+        return np.nan
+    cleaned = str(val).replace('$','').replace(',','').replace('CAD','').strip()
+    try:
+        return round(float(cleaned), 2)
+    except:
+        return np.nan
+
+df['total_revenue'] = df['total_revenue'].apply(clean_money)
+df['unit_price'] = df['unit_price'].apply(clean_money)
+```
+
+## 🔍 Business Rule Validation
+
+```python
+df['revenue_check'] = np.where(
+    abs(df['total_revenue'] - df['quantity'] * df['unit_price']) > 0.02,
+    'MISMATCH',
+    'OK'
+)
+
+mismatches = df[df['revenue_check'] == 'MISMATCH']
+print(f"{len(mismatches)} revenue mismatches found")
+```
+
+---
+
+## 🔁 Transaction Type Flag
+
+```python
+df['transaction_type'] = np.where(
+    df['total_revenue'] < 0,
+    'Refund',
+    'Sale'
+)
+```
+
+---
+
+## 🎯 What This Does
+
+* Removes `$`, `,`, and `CAD` from currency values
+* Converts cleaned values to `float`
+* Validates business logic:
+
+  ```
+  total_revenue ≈ quantity × unit_price
+  ```
+* Flags mismatches for investigation
+* Identifies refunds (negative revenue)
+
+---
+
+## ⚠️ Best Practices
+
+* Do not delete mismatches → investigate them
+* Always validate financial data after cleaning
+* Use tolerance (e.g., `0.02`) for rounding differences
+
+```
+```
