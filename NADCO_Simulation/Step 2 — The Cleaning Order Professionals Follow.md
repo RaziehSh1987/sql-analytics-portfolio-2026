@@ -191,6 +191,9 @@ df['date'].dtype
 ## ## Handling Money Column in Power Query(M)
 - 💰 Convert Currency Text to Number in Power Query (M)
 <img width="603" height="271" alt="image" src="https://github.com/user-attachments/assets/799d0bb5-9d7d-43dd-9ab9-d72c1fe77689" />
+- If we want to do on 2 column we can write like these:
+<img width="430" height="345" alt="image" src="https://github.com/user-attachments/assets/e1cbdf9f-9444-48eb-b6d3-8891c0387f1f" />
+
 ### 🎯 Goal
 Convert values like:
 ```
