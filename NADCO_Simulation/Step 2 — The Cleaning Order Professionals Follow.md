@@ -184,6 +184,94 @@ df['date'].dtype
 
 ```
 ```
-## I convert Date columns to these columns and also kept the original Date column:
+## I convert Date columns to these columns (for year,month , season) and also kept the original Date column:
 <img width="1892" height="651" alt="image" src="https://github.com/user-attachments/assets/bb17e9bb-b043-4d12-8257-9ee4deb4deb2" />
+
+
+## ## Handling Money Column in Power Query(M)
+- 💰 Convert Currency Text to Number in Power Query (M)
+<img width="603" height="271" alt="image" src="https://github.com/user-attachments/assets/799d0bb5-9d7d-43dd-9ab9-d72c1fe77689" />
+### 🎯 Goal
+Convert values like:
+```
+
+"$5,800.00"
+
+```
+into:
+```
+
+5800
+
+````
+
+---
+
+## ✅ M Code
+```m
+= Table.TransformColumns(#"Previous Step", {
+    {"total_revenue", each 
+        Number.FromText(
+            Text.Replace(
+                Text.Replace(Text.From(_), "$", ""), 
+            ",", "")
+        ), 
+    type number}
+})
+````
+
+---
+
+## 🧠 How It Works
+
+| Step | Function                     | Purpose              |
+| ---- | ---------------------------- | -------------------- |
+| 1    | `Text.From(_)`               | Ensure value is text |
+| 2    | `Text.Replace(..., "$", "")` | Remove `$`           |
+| 3    | `Text.Replace(..., ",", "")` | Remove commas        |
+| 4    | `Number.FromText(...)`       | Convert to number    |
+
+---
+
+## 🔄 Example
+
+```
+"$5,800.00" → "5800.00" → 5800
+```
+
+---
+
+## ⚠️ Important
+
+* Use this **only if your column is text**
+* If already numeric → ❌ this step is unnecessary and may cause errors
+
+---
+
+## 🧩 Function Used
+
+```m
+Table.TransformColumns(...)
+```
+
+Applies transformation to each value in the column and sets final type to `number`
+
+---
+
+## 🚀 Tip (Better Approach)
+
+If your data is well-formatted, use locale instead:
+
+```m
+= Table.TransformColumnTypes(#"Previous Step", {
+    {"total_revenue", type number}
+}, "en-CA")
+```
+
+✔ Cleaner
+✔ More efficient
+✔ Preferred in production
+
+```
+```
 
