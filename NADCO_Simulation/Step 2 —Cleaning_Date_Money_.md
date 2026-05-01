@@ -371,6 +371,8 @@ df['transaction_type'] = np.where(
 - we do these steps on all text columns
 
 <img width="776" height="288" alt="image" src="https://github.com/user-attachments/assets/45c6e64e-aaa5-4493-9ff1-1c0c135df090" />
+<img width="793" height="533" alt="image" src="https://github.com/user-attachments/assets/593ad23b-c467-440b-b6eb-e5730cb8c9ea" />
+
 
 
 ## Power Query (M) — Apply `Text.Trim` to Multiple Columns by Index
@@ -404,6 +406,95 @@ df['transaction_type'] = np.where(
 ```
 ```
 <img width="1906" height="594" alt="image" src="https://github.com/user-attachments/assets/10cae295-5378-4f11-b98a-e89789a48665" />
+
+
+# Fix Text in Python — Including Fuzzy Matching
+
+```python
+import pandas as pd
+
+df = pd.read_csv('kit_sales.csv')
+
+# Trim + standardize case
+text_cols = ['channel', 'client_type', 'region', 'sku_name']
+for col in text_cols:
+    df[col] = df[col].str.strip().str.title()
+
+# Standardize known variants
+channel_map = {
+    'school': 'School', 'SCHOOL': 'School',
+    'camp': 'Camp', 'Summer Camp': 'Camp',
+    'direct': 'Direct', 'retail': 'Direct'
+}
+df['channel'] = df['channel'].replace(channel_map)
+
+# Fuzzy matching for typos (pip install thefuzz)
+from thefuzz import process
+
+valid_channels = ['School', 'Camp', 'Direct']
+
+df['channel_clean'] = df['channel'].apply(
+    lambda x: process.extractOne(x, valid_channels)[0]
+)
+
+# Validate IDs — should match pattern SKU-###
+import re
+
+df['sku_valid'] = df['sku'].str.match(r'^SKU-\d{3}$')
+
+# Show invalid SKUs
+print(df[~df['sku_valid']][['order_id', 'sku']])
+
+```
+## Explanation
+
+* **Trim + Case Standardization**
+  Removes extra spaces and converts text to consistent title case.
+
+* **Mapping Known Variants**
+  Replaces predefined inconsistent values with standardized ones.
+
+* **Fuzzy Matching**
+  Uses `thefuzz` to automatically correct typos by matching to the closest valid value.
+
+* **ID Validation**
+  Ensures `sku` follows the pattern `SKU-###` using regex.
+
+## Notes
+
+* Install fuzzy matching library:
+
+  ```bash
+  pip install thefuzz
+  ```
+
+* `process.extractOne()` returns the closest match from valid options.
+
+* Regex pattern:
+
+  * `^SKU-` → must start with "SKU-"
+  * `\d{3}` → exactly 3 digits
+
+* Invalid records are filtered for inspection using:
+
+  ```python
+  df[~df['sku_valid']]
+  ```
+
+## Summary
+
+This pipeline:
+
+* Cleans text (trim + case)
+* Standardizes known values
+* Fixes typos automatically
+* Validates structured IDs
+
+Suitable for scalable, production-level data cleaning.
+
+```
+```
+
 
 
 
