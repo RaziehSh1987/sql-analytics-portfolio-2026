@@ -368,6 +368,7 @@ df['transaction_type'] = np.where(
 
 
 # Text & IDs — Cleaning
+- we do these steps on all text columns
 
 <img width="776" height="288" alt="image" src="https://github.com/user-attachments/assets/45c6e64e-aaa5-4493-9ff1-1c0c135df090" />
 
