@@ -367,3 +367,42 @@ df['transaction_type'] = np.where(
 
 
 
+# Text & IDs — Cleaning
+
+<img width="776" height="288" alt="image" src="https://github.com/user-attachments/assets/45c6e64e-aaa5-4493-9ff1-1c0c135df090" />
+
+
+## Power Query (M) — Apply `Text.Trim` to Multiple Columns by Index
+
+```m
+= Table.TransformColumns(
+    #"Custom1",
+    List.Transform(
+        {1,3,5},
+        each { Table.ColumnNames(#"Custom1"){_}, Text.Trim }
+    )
+)
+````
+
+## Explanation
+
+* `{1,3,5}` → list of column indexes (zero-based)
+* `Table.ColumnNames(#"Custom1"){_}` → converts each index to its corresponding column name
+* `List.Transform(...)` → builds transformation rules like `{"ColumnName", Text.Trim}`
+* `Table.TransformColumns` → applies `Text.Trim` to each selected column
+
+## Notes
+
+* Indexes are **zero-based**:
+
+  * `0` = first column
+  * `1` = second column
+* Ensure indexes exist to avoid errors
+* Useful when column names are dynamic but positions are fixed
+
+```
+```
+<img width="1662" height="575" alt="image" src="https://github.com/user-attachments/assets/5f34ba19-6fab-49ba-a41d-8da7fee11f15" />
+
+
+
