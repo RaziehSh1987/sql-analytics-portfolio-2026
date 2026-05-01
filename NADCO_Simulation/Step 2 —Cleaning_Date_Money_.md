@@ -403,7 +403,8 @@ df['transaction_type'] = np.where(
 
 ```
 ```
-<img width="1662" height="575" alt="image" src="https://github.com/user-attachments/assets/5f34ba19-6fab-49ba-a41d-8da7fee11f15" />
+<img width="1906" height="594" alt="image" src="https://github.com/user-attachments/assets/10cae295-5378-4f11-b98a-e89789a48665" />
+
 
 
 
