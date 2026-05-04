@@ -507,6 +507,9 @@ Suitable for scalable, production-level data cleaning.
 output:
 <img width="701" height="265" alt="image" src="https://github.com/user-attachments/assets/d67d11b6-d220-4e79-94b2-b6128e69cbfb" />
 
+- if we want to convert to upper format:
+- <img width="727" height="313" alt="image" src="https://github.com/user-attachments/assets/a4020464-be86-427e-81fe-467e03efb987" />
+
 ```
 ```
 
