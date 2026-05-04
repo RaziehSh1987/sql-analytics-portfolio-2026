@@ -492,6 +492,21 @@ This pipeline:
 
 Suitable for scalable, production-level data cleaning.
 
+- this below code write text column in proper format like:
+- <img width="513" height="41" alt="image" src="https://github.com/user-attachments/assets/8a5e4f99-6575-48d6-a007-785a43847454" />
+ 
+```m
+= Table.TransformColumns(
+    #"Custom1",
+    List.Transform(
+        {0,1,2,3,4,5,6},
+        each { Table.ColumnNames(#"Custom1"){_},
+         each Text.Proper(Text.Trim(Text.From(_))) ,
+         type text}))
+```
+output:
+<img width="701" height="265" alt="image" src="https://github.com/user-attachments/assets/d67d11b6-d220-4e79-94b2-b6128e69cbfb" />
+
 ```
 ```
 
